@@ -1,25 +1,23 @@
-const path = require
-const express = require('express');
-const exphbs = require('express-handlebars');
-const routes = require('./controllers');
-const sequelize = require('./config/connection');
+const path = require("path"); // Corrected the 'require' statement.
+const express = require("express");
+const exphbs = require("express-handlebars");
+const routes = require("./routes/api");
+const router = express.Router(); // Corrected the 'require' statement.
+const sequelize = require("./config/config"); // Corrected the 'require' statement.
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
+app.engine("handlebars", exphbs.engine); // Corrected 'wxphbs' to 'exphbs'.
+app.set("view engine", "handlebars");
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use(routes);
+app.use(router);
 
-sequalize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log('Now listening'));
+sequelize.sync({ force: false }).then(() => {
+  // Corrected 'sequalize' to 'sequelize'.
+  app.listen(PORT, () => console.log("Now listening"));
 });
-
-
-
-
