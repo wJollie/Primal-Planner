@@ -1,23 +1,55 @@
-const path = require("path"); // Corrected the 'require' statement.
+const path = require("path");
 const express = require("express");
 const exphbs = require("express-handlebars");
-const routes = require("./routes/api");
-const router = express.Router(); // Corrected the 'require' statement.
-const sequelize = require("./config/config"); // Corrected the 'require' statement.
+const session = require("express-session");
+const apiRoutes = require("./routes/api/apiRoutes");
+const helpers = require("./utils/helpers");
+const sequelize = require("./config/config");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.engine("handlebars", exphbs.engine); // Corrected 'wxphbs' to 'exphbs'.
+// Set up express-handlebars with custom helpers
+const hbs = exphbs.create({ helpers });
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Set up express-session
+app.use(
+  session({
+    secret: "your-secret-key", // Replace with a strong, random key
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
-app.use(router);
+// Specify the path to the layouts directory
+app.set("views", path.join(__dirname, "views"));
 
-sequelize.sync({ force: false }).then(() => {
-  // Corrected 'sequalize' to 'sequelize'.
-  app.listen(PORT, () => console.log("Now listening"));
+// Set the layout to use for all views (optional)
+app.set("view options", { layout: "layouts/main" });
+
+// Define a route handler for the root URL ("/") to render signUp.handlebars
+app.get("/", (req, res) => {
+  res.render("signUp", {
+    pageTitle: "Sign Up",
+    pageClass: "signUp",
+  }); // Load the "signUp.handlebars" view
+});
+
+// Use the API routes
+app.use("/api", apiRoutes);
+
+sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}!`);
+  });
 });
