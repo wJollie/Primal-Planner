@@ -2,9 +2,11 @@ const path = require("path");
 const express = require("express");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
-const apiRoutes = require("./routes/api/apiRoutes");
+const routes = require("./controllers");
 const helpers = require("./utils/helpers.js");
 const sequelize = require("./config/config");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,14 +17,19 @@ app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 // Set up express-session
-app.use(
-  session({
-    secret: "your-secret-key", // Replace with a strong, random key
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+const sess = {
+  secret: process.env.DB_SECRET,
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+    checkExpirationInterval: 1000 * 60 * 10, // will check every 10 minutes
+    expiration: 1000 * 60 * 30, // will expire after 30 minutes
+  }),
+};
 
+app.use(session(sess));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(
@@ -34,34 +41,8 @@ app.use(
 // Specify the path to the layouts directory
 app.set("views", path.join(__dirname, "views"));
 
-// Set the layout to use for all views (optional)
-app.set("view options", { layout: "layouts/main" });
-
-// Define a route handler for the root URL ("/") to render signUp.handlebars
-app.get("/", (req, res) => {
-  res.render("signUp", {
-    pageTitle: "Sign Up",
-    pageClass: "signUp",
-  }); // Load the "signUp.handlebars" view
-});
-// This route handler renders the signup page on page load. Needs to be changed to render home page when Keller is done making it
-
-app.get("/signUp", (req, res) => {
-  res.render("signUp", {
-    pageTitle: "Sign Up",
-    pageClass: "signUp",
-  }); // Load the "signUp.handlebars" view
-});
-
-app.get("/login", (req, res) => {
-  res.render("login", {
-    pageTitle: "Log In",
-    pageClass: "login",
-  }); // Load the "login.handlebars" view
-});
-
 // Use the API routes
-app.use("/api", apiRoutes);
+app.use(routes);
 
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
