@@ -44,6 +44,21 @@ app.get("/", (req, res) => {
     pageClass: "signUp",
   }); // Load the "signUp.handlebars" view
 });
+// This route handler renders the signup page on page load. Needs to be changed to render home page when Keller is done making it
+
+app.get("/signUp", (req, res) => {
+  res.render("signUp", {
+    pageTitle: "Sign Up",
+    pageClass: "signUp",
+  }); // Load the "signUp.handlebars" view
+});
+
+app.get("/login", (req, res) => {
+  res.render("login", {
+    pageTitle: "Log In",
+    pageClass: "login",
+  }); // Load the "login.handlebars" view
+});
 
 // Use the API routes
 app.use("/api", apiRoutes);
