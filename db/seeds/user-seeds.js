@@ -1,4 +1,5 @@
-const { User } = require('../models');
+const sequelize = require('../../config/config');
+const { User } = require('../../models');
 
 const userData = [
   {
@@ -29,9 +30,7 @@ const userData = [
 
 const seedUsers = async () => {
   try {
-    for (const user of userData) {
-      await User.create(user);
-    }
+    await User.bulkCreate(userData);
     console.log('Users seeded successfully');
   } catch (err) {
     console.error('Error seeding users:', err);
