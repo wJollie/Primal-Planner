@@ -15,7 +15,6 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "node db/seeds/user-seeds.js",
     "start": "node server.js"
   },
   "author": "",
