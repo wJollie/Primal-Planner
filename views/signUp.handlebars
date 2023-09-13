@@ -18,7 +18,7 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
     <link rel="stylesheet" href="/css/style.css" />
-    <title>Log In</title>
+    <title>Sign up</title>
   </head>
   <body>
     <div class="area">
@@ -43,31 +43,18 @@
             </div>
           </div>
           <div class="col-right">
-            <div class="login-form">
+            <div class="signup-form">
               <h2>Sign Up</h2>
               <form action="">
                 <p>
                   <label>Username<span>*</span></label>
-                  <input type="text" placeholder="Username or Email" required />
+                  <input id="username-signup" type="text" placeholder="Username" required />
                 </p>
                 <p>
                   <label>Password<span>*</span></label>
-                  <input type="password" placeholder="Password" required />
+                  <input id="password-signup" type="password" placeholder="Password" required />
                 </p>
                 <p><input type="submit" value="Sign Up" /></p>
-
-                <div class="icons gap-3 justify-content-center">
-                  <a href="https://twitter.com/dcodeyt">
-                    <ion-icon name="logo-twitter"></ion-icon>
-                  </a>
-                  <a href="https://facebook.com/dcodeyt">
-                    <ion-icon name="logo-facebook"></ion-icon>
-                  </a>
-                  <a href="https://facebook.com/dcodeyt">
-                    <ion-icon name="logo-instagram"></ion-icon>
-                  </a>
-                </div>
-
                 <p class="return">
                   <p class="return">
   <a href="/login">Oops! Return to Log In</a>
@@ -93,6 +80,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="/js/main.js"></script>
+    <script src="/javascript/signup.js"></script>
   </body>
 </html>

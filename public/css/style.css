@@ -39,8 +39,8 @@ body {
   align-items: center;
 }
 
-.login .col-left,
-.login .col-right {
+.login  .col-left,
+.login  .col-right {
   padding: 30px;
   display: flex;
 }
