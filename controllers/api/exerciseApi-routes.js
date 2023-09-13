@@ -14,7 +14,10 @@ fetch(apiUrl, {
   }
 })
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => {
+    const exercises = data.map(({ name, type, equipment, difficulty }) => ({ name, type, equipment, difficulty }));
+    console.log(exercises);
+  })
   .catch(error => console.error(error));
 
 });
