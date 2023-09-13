@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
         })
       );
 
-      res.render("homepage", {
+      res.render("landing.handlebars", {
         posts,
         loggedIn: req.session.loggedIn,
       });
@@ -84,7 +84,7 @@ router.get("/post/:id", (req, res) => {
 
 router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect("/");
+    res.redirect("/dashboard");
     return;
   }
 
