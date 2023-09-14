@@ -1,42 +1,33 @@
 const router = require("express").Router();
+const sequelize = require("../../config/connection");
+// const fetch = require('node-fetch');
+const workout = require("../../models/workout");
 
 router.get("/workout", (req, res) => {
+  const muscle = 'neck';
+  const apiKey = 'HbdhHkcGSZn6/VN1pw6s1A==kVA4cQZn2RBTZcrX'; // Replace with your actual API key
+  const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`;
 
-  const fetch = require('node-fetch');
-
-const muscle = 'biceps';
-const apiKey = 'HbdhHkcGSZn6/VN1pw6s1A==kVA4cQZn2RBTZcrX'; // Replace with your actual API key
-const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`;
-
-fetch(apiUrl, {
-  headers: {
-    'X-Api-Key': apiKey
-  }
-})
-  .then(response => response.json())
-  .then(data => {
-    const exercises = data.map(({ name, type, equipment, difficulty }) => ({ name, type, equipment, difficulty }));
-    console.log(exercises);
+  fetch(apiUrl, {
+    headers: {
+      'X-Api-Key': apiKey
+    }
   })
-  .catch(error => console.error(error));
-
+    .then(response => response.json())
+    .then(data => {
+      const exercises = data.map(({ name, type, equipment, difficulty }) => ({ name, type, equipment, difficulty }));
+      console.log("API CALL DONE");
+      return workout.bulkCreate(exercises); // return this promise so that any errors it throws will be caught by the final .catch block
+    })
+    .then(() => {
+      res.json({ message: 'EXERCISES added to DATABASE' });
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).json({ message: "Error Saving workouts to Database" });
+    });
 });
 
-
-// const fetch = require('node-fetch');
-
-// const muscle = 'biceps';
-// const apiKey = 'HbdhHkcGSZn6/VN1pw6s1A==kVA4cQZn2RBTZcrX'; // Replace with your actual API key
-// const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`;
-
-// fetch(apiUrl, {
-//   headers: {
-//     'X-Api-Key': apiKey
-//   }
-// })
-//   .then(response => response.json())
-//   .then(data => console.log(data))
-//   .catch(error => console.error(error));
 
 
 module.exports = router;
