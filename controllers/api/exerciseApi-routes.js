@@ -1,11 +1,10 @@
 const router = require("express").Router();
 const sequelize = require("../../config/connection");
-// const fetch = require('node-fetch');
 const workout = require("../../models/workout");
 
 router.get("/workout", (req, res) => {
   const muscle = 'neck';
-  const apiKey = 'HbdhHkcGSZn6/VN1pw6s1A==kVA4cQZn2RBTZcrX'; // Replace with your actual API key
+  const apiKey = 'HbdhHkcGSZn6/VN1pw6s1A==kVA4cQZn2RBTZcrX'; 
   const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`;
 
   fetch(apiUrl, {
@@ -17,7 +16,7 @@ router.get("/workout", (req, res) => {
     .then(data => {
       const exercises = data.map(({ name, type, equipment, difficulty }) => ({ name, type, equipment, difficulty }));
       console.log("API CALL DONE");
-      return workout.bulkCreate(exercises); // return this promise so that any errors it throws will be caught by the final .catch block
+      return workout.bulkCreate(exercises); 
     })
     .then(() => {
       res.json({ message: 'EXERCISES added to DATABASE' });
