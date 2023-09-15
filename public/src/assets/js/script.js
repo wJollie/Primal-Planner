@@ -1,9 +1,9 @@
-const armDropdown = document.querySelector('.dropdownArm');
-const legDropdown = document.querySelector('.dropdownLeg');
-const absDropdown = document.querySelector('.dropdownAbs');
-require('dotenv').config();
-const dropdown = document.getElementById("dropdown");
-const buttonContainer = document.getElementById("button-container");
+// const armDropdown = document.querySelector('.dropdownArm');
+// const legDropdown = document.querySelector('.dropdownLeg');
+// const absDropdown = document.querySelector('.dropdownAbs');
+const env = require('dotenv').config();
+// const dropdown = document.getElementById("dropdown");
+// const buttonContainer = document.getElementById("button-container");
 
 // dropdown.addEventListener("change", function () {
 //     // Clear the existing buttons
@@ -31,10 +31,11 @@ const buttonContainer = document.getElementById("button-container");
 //   });
 
   function fetchExercises() {
+    console.log("Function fetchExercises called");
     const selectedMuscle = document.getElementById("dropdown").value;
     if (selectedMuscle !== "default") {
         // Construct the API URL with the selected muscle
-        const apiKey = process.env.API_KEY;
+        const apiKey = "HbdhHkcGSZn6/VN1pw6s1A==kVA4cQZn2RBTZcrX";
         const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${selectedMuscle}`;
 
         // Make the API call
