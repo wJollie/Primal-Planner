@@ -1,7 +1,7 @@
 // const armDropdown = document.querySelector('.dropdownArm');
 // const legDropdown = document.querySelector('.dropdownLeg');
 // const absDropdown = document.querySelector('.dropdownAbs');
-const env = require('dotenv').config();
+require('dotenv').config();
 // const dropdown = document.getElementById("dropdown");
 // const buttonContainer = document.getElementById("button-container");
 
@@ -30,33 +30,51 @@ const env = require('dotenv').config();
 //     }
 //   });
 
-  function fetchExercises() {
-    console.log("Function fetchExercises called");
-    const selectedMuscle = document.getElementById("dropdown").value;
-    if (selectedMuscle !== "default") {
-        // Construct the API URL with the selected muscle
-        const apiKey = "HbdhHkcGSZn6/VN1pw6s1A==kVA4cQZn2RBTZcrX";
-        const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${selectedMuscle}`;
+  async function fetchExercises() {
+    // console.log("Function fetchExercises called");
+    // const selectedMuscle = document.getElementById("dropdown").value;
+    // if (selectedMuscle !== "default") {
+    //     // Construct the API URL with the selected muscle
+    //     const apiKey = process.env.API_KEY;
+    //     const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${selectedMuscle}`;
 
-        // Make the API call
-        fetch(apiUrl, {
-            headers: {
-                "X-Api-Key": apiKey,
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                const exercises = data.map(({ name, type, equipment, difficulty }) => ({
-                    name,
-                    type,
-                    equipment,
-                    difficulty,
-                }));
-                console.log("API CALL DONE");
-                // You can handle the retrieved data as needed (e.g., save it to the database)
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+    //     // Make the API call
+    //     fetch(apiUrl, {
+    //         headers: {
+    //             "X-Api-Key": apiKey,
+    //         },
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             const exercises = data.map(({ name, type, equipment, difficulty }) => ({
+    //                 name,
+    //                 type,
+    //                 equipment,
+    //                 difficulty,
+    //             }));
+    //             console.log("API CALL DONE");
+    //             // You can handle the retrieved data as needed (e.g., save it to the database)
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         });
+    // }
+ try  {
+     var response = await fetch("api/getpumpedup/workout");
+     if (!response.ok) {
+        throw new Error("something went wrong");
+     } 
+       
+     const data = await response.json();
+     console.log(data);
+    } catch (error) {
+        console.log(error);
     }
 }
+
+
+
+
+
+  
+
