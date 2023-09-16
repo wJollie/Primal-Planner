@@ -24,8 +24,10 @@ router.get("/workout", (req, res) => {
       console.log("API CALL DONE");
       return workout.bulkCreate(exercises);
     })
-    .then(() => {
-      res.json({ message: "EXERCISES added to DATABASE" });
+    .then((workout) => {
+      console.log(workout); 
+      res.json(workout);
+      
     })
     .catch((error) => {
       console.error(error);
