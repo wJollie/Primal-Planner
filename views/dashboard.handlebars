@@ -160,9 +160,25 @@
         </div>
       </div>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dropdown = document.getElementById("dropdown");
+    const saveButton = document.querySelector(".saveButton");
 
+    saveButton.addEventListener("click", function () {
+      const selectedMuscle = dropdown.value;
 
+            fetch(`/api/workout/${selectedMuscle}`)
+        .then((response) => response.json())
+        .then((data) => {
 
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  });
+</script>
 
       <script src="/src/assets/js/script.js"></script>
       {{!--

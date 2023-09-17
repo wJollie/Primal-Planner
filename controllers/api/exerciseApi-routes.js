@@ -3,8 +3,8 @@ const sequelize = require("../../config/connection");
 const workout = require("../../models/workout");
 require("dotenv").config();
 
-router.get("/workout", (req, res) => {
-  const muscle = "neck";
+router.get("/workout/:muscle", (req, res) => {
+  const muscle = req.params.muscle;
   const apiKey = process.env.API_KEY;
   const apiUrl = `https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`;
 
