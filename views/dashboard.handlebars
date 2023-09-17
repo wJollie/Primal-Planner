@@ -67,7 +67,7 @@
                 <option value="traps">traps</option>
                 <option value="triceps">triceps</option>
               </select>
-              <button type="button" class="saveButton btn btn-primary btn-lg" onclick="fetchExercises()">Save</button>
+              <button type="button" class="saveButton btn btn-primary btn-lg" onclick="fetchExercises()" >Save</button>
 
               <div id="button-container"></div>
             </div>
@@ -160,25 +160,7 @@
         </div>
       </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const dropdown = document.getElementById("dropdown");
-    const saveButton = document.querySelector(".saveButton");
 
-    saveButton.addEventListener("click", function () {
-      const selectedMuscle = dropdown.value;
-
-            fetch(`/api/workout/${selectedMuscle}`)
-        .then((response) => response.json())
-        .then((data) => {
-
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    });
-  });
-</script>
 
       <script src="/src/assets/js/script.js"></script>
       {{!--
