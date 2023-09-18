@@ -1,1 +1,23 @@
 {{!-- workout data page template --}}
+<script id="exercise-template" type="text/x-handlebars-template">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Equipment</th>
+        <th>Difficulty</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each exercises}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{type}}</td>
+        <td>{{equipment}}</td>
+        <td>{{difficulty}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</script>
