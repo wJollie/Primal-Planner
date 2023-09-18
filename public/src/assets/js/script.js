@@ -31,9 +31,9 @@ async function fetchExercises() {
                     exerciseDiv.classList.add("exercise");
                     exerciseDiv.innerHTML = `   
                     <h1>${exercise.name}</h1>
-                    <p>${exercise.type}</p>
-                    <p>${exercise.equipment}</p>
-                    <p>${exercise.difficulty}</p>
+                    <p>Type: ${exercise.type}</p>
+                    <p>Equipment: ${exercise.equipment}</p>
+                    <p>Difficulty: ${exercise.difficulty}</p>
                     `; 
                     exerciseContainer.appendChild(exerciseDiv);
                 }
