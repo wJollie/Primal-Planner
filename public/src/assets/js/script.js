@@ -1,3 +1,48 @@
+// Function to save exercises to local storage
+function saveExercisesToLocalStorage(day, exerciseData) {
+  // Retrieve the existing data from local storage (if any)
+  let savedExercises = JSON.parse(localStorage.getItem("savedExercises")) || {};
+
+  // Check if the day already has saved exercises
+  if (!savedExercises[day]) {
+    savedExercises[day] = [];
+  }
+
+  // Add the exercise data to the specific day
+  savedExercises[day].push(exerciseData);
+
+  // Save the updated data back to local storage
+  localStorage.setItem("savedExercises", JSON.stringify(savedExercises));
+}
+
+// Function to retrieve exercises from local storage
+function getExercisesFromLocalStorage() {
+  // Retrieve the saved exercises from local storage
+  const savedExercises =
+    JSON.parse(localStorage.getItem("savedExercises")) || {};
+
+  return savedExercises;
+}
+
+// When the page loads, populate the calendar with saved exercises
+window.addEventListener("load", function () {
+  const savedExercises = getExercisesFromLocalStorage();
+
+  // Loop through each day in savedExercises
+  for (const day in savedExercises) {
+    if (savedExercises.hasOwnProperty(day)) {
+      const dayContainer = document.getElementById(`exerciseContainer${day}`);
+      if (dayContainer) {
+        // Loop through saved exercises for the day and add them to the calendar
+        savedExercises[day].forEach((exerciseData) => {
+          const exerciseElement = createExerciseElement(exerciseData);
+          dayContainer.appendChild(exerciseElement);
+        });
+      }
+    }
+  }
+});
+
 async function fetchExercises() {
   console.log("Function fetchExercises called");
   const selectedMuscle = document.getElementById("dropdown").value;
@@ -63,21 +108,20 @@ function addExerciseListeners() {
   document.querySelectorAll(".add-exercise").forEach((addButton) => {
     addButton.addEventListener("click", function () {
       const exerciseData = JSON.parse(this.getAttribute("data-exercise"));
-
-      // Get the selected day from the dropdown menu
       const selectedDayDropdown = document.getElementById("dayDropdown");
       const selectedDay = selectedDayDropdown.value;
 
       if (selectedDay !== "default") {
-        // Get the day container for the selected day
         const dayContainer = document.getElementById(
           `exerciseContainer${selectedDay}`
         );
 
         if (dayContainer) {
-          // Create a new exercise element and append it to the day container
           const exerciseElement = createExerciseElement(exerciseData);
           dayContainer.appendChild(exerciseElement);
+
+          // Save the exercise to local storage
+          saveExercisesToLocalStorage(selectedDay, exerciseData);
         } else {
           alert("Invalid day. Exercise was not added.");
         }
