@@ -23,6 +23,21 @@ async function fetchExercises() {
                 }));
                 console.log("API CALL DONE");
                 console.log(exercises);
+                // Display the exercises on the page
+                const exerciseContainer = document.getElementById("dashboard");
+                exerciseContainer.innerHTML = "";
+                exercises.forEach((exercise) => {
+                    const exerciseDiv = document.createElement("div");
+                    exerciseDiv.classList.add("exercise");
+                    exerciseDiv.innerHTML = `   
+                    <h1>${exercise.name}</h1>
+                    <p>${exercise.type}</p>
+                    <p>${exercise.equipment}</p>
+                    <p>${exercise.difficulty}</p>
+                    `; 
+                    exerciseContainer.appendChild(exerciseDiv);
+                }
+                );
                 
 
             })
