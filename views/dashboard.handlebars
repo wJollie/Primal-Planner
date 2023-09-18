@@ -68,6 +68,17 @@
                 <option value="traps">traps</option>
                 <option value="triceps">triceps</option>
               </select>
+
+              <select id="dayDropdown">
+                <option value="MON">Monday</option>
+                <option value="TUE">Tuesday</option>
+                <option value="WED">Wednesday</option>
+                <option value="THU">Thursday</option>
+                <option value="FRI">Friday</option>
+                <option value="SAT">Saturday</option>
+                <option value="SUN">Sunday</option>
+              </select>
+
               <button type="button" class="saveButton btn btn-primary btn-lg" onclick="fetchExercises()" >Save</button>
 
               <div id="button-container"></div>
@@ -105,7 +116,7 @@
                     </div>
                     <div class="column-content">
                       <!-- Add cards here -->
-                      <div id="exerciseContainer" class="btn-primary btn-lg"></div>
+                      <div id="exerciseContainerTUE" class="btn-primary btn-lg"></div>
                     </div>
                   </div>
 
@@ -169,3 +180,5 @@
 
       <script src="/src/logout.js"></script>
       <script src="/src/assets/js/script.js"></script>
+      <script src="/src/assets/js/addExercise.js"></script>
+</body>
